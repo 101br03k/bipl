@@ -17,8 +17,14 @@ sudo reboot
 DHCP
 ```
 sudo dnf install dhcp-server bind httpd samba 
+firewall-cmd --list-all
+firewall-cmd --add-service=http --permanent
+firewall-cmd --add-service=dhcp --permanent
+firewall-cmd --add-service=dns --permanent
+firewall-cmd --list-all
 ```
 installeert de DHCP, DNS, WEB en linux SMB
+
 ```
 cp dhcpd.conf dhcpd.conf.old⁠
 ```
@@ -55,14 +61,7 @@ subnet 10.1.32.0 netmask 255.255.255.0 {
   max-lease-time 7200;
 }
 ```
-4.	 
-```
-firewall-cmd --list-all
-firewall-cmd --add-service=dhcp --permanent
-firewall-cmd --reload 
-
-```
-5.	systemctl
+4.	systemctl
 
 Mocht de DHCP moeten worden gebruikt op een client:
 -	Config file BOOTPROTO=dhcp. TYPE=Ethernet. ONBOOT=yes.
@@ -97,9 +96,6 @@ zone "bmc.test" IN {
 
 systemctl enable named
 systemctl start named
-
-firewall-cmd --add-service=dns --permanent
-hiermee zet je het open voor dns verkeer
 
 Netwerk configuratie maken dat de linux servers zelf gebruik kunnen maken van de DNS server.
 r /etc/resolv.conf
