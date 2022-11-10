@@ -15,12 +15,17 @@ change all to new name
 sudo reboot
 
 DHCP
-1.	 sudo dnf install dhcp-server bind httpd samba installeert de DHCP, DNS, WEB en linux SMB
-2.	⁠cp dhcpd.conf naar dhcpd.conf.old⁠ (voor backup)
-3.	 met nano of vim  dhcpd.conf aanpassen met eigen gegevens
-
-
- 
+```
+sudo dnf install dhcp-server bind httpd samba 
+```
+installeert de DHCP, DNS, WEB en linux SMB
+```
+cp dhcpd.conf dhcpd.conf.old⁠
+```
+```
+nano dhcpd.conf
+```
+```
 # dhcpd.conf
 #
 # Sample configuration file for ISC dhcpd
@@ -49,11 +54,14 @@ subnet 10.1.32.0 netmask 255.255.255.0 {
   default-lease-time 600;
   max-lease-time 7200;
 }
-
+```
 4.	 
+```
 firewall-cmd --list-all
 firewall-cmd --add-service=dhcp --permanent
 firewall-cmd --reload 
+
+```
 5.	systemctl
 
 Mocht de DHCP moeten worden gebruikt op een client:
